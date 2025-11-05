@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"example/web-service-gin/models"
+
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
@@ -34,8 +35,9 @@ func SyncDatabase() {
 			{Title: "Jeru", Artist: "Gerry Mulligan", Price: 17.99},
 			{Title: "Sarah Vaughan and Clifford Brown", Artist: "Sarah Vaughan", Price: 39.99},
 		}
-		DB.Create(&seedAlbums)
+		if err := DB.Create(&seedAlbums).Error; err != nil {
+			log.Fatal("Erreur lors de la création des données de seed")
+		}
 		log.Println("Données de seed initialisées")
 	}
 }
-
