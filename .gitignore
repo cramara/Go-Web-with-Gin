@@ -1,0 +1,48 @@
+# Fichiers exécutables
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Fichiers de test
+*.test
+*.out
+
+# Fichiers de build Go
+/app.exe
+/go-crud.exe
+
+# Base de données
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# Variables d'environnement
+.env
+.env.local
+.env.*.local
+
+# Dossier vendor (si utilisé)
+vendor/
+
+# Fichiers temporaires
+*.tmp
+*.temp
+*~
+
+# Fichiers de l'IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Fichiers de logs
+*.log
+
+# Fichiers de coverage
+coverage.out
+coverage.html
+
