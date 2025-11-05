@@ -19,8 +19,7 @@ type Claims struct {
 func getJWTSecret() string {
 	secret := os.Getenv("JWT_SECRET")
 	if secret == "" {
-		return "default-jwt
-		"
+		return "default-jwt"
 	}
 	return secret
 }
@@ -66,4 +65,3 @@ func ValidateToken(tokenString string) (*Claims, error) {
 
 	return nil, errors.New("token invalide")
 }
-
