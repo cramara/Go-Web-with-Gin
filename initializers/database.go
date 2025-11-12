@@ -22,7 +22,7 @@ func ConnectDB() {
 }
 
 func SyncDatabase() {
-	err := DB.AutoMigrate(&models.Album{}, &models.User{})
+	err := DB.AutoMigrate(&models.Album{}, &models.User{}, &models.Tag{})
 	if err != nil {
 		log.Fatal("Erreur lors de la migration de la base de données")
 	}
@@ -41,3 +41,6 @@ func SyncDatabase() {
 		log.Println("Données de seed initialisées")
 	}
 }
+
+
+
