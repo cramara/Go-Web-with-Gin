@@ -26,7 +26,7 @@ const CreateAlbum = () => {
       const data = await tagsAPI.getAll()
       setTags(data)
     } catch (err) {
-      console.error('Erreur lors du chargement des tags:', err)
+      console.error('Error loading tags:', err)
     } finally {
       setLoadingTags(false)
     }
@@ -54,7 +54,7 @@ const CreateAlbum = () => {
   const handleCreateTag = async (e) => {
     e.preventDefault()
     if (!newTagName.trim()) {
-      setError('Le nom du tag ne peut pas être vide')
+      setError('Tag name cannot be empty')
       return
     }
 
@@ -67,7 +67,7 @@ const CreateAlbum = () => {
       setShowNewTagInput(false)
       setError('')
     } catch (err) {
-      setError(err.response?.data?.error || 'Erreur lors de la création du tag')
+      setError(err.response?.data?.error || 'Error creating tag')
     }
   }
 
@@ -78,7 +78,7 @@ const CreateAlbum = () => {
 
     const priceNum = parseFloat(price)
     if (isNaN(priceNum) || priceNum < 0) {
-      setError('Le prix doit être un nombre positif')
+      setError('Price must be a positive number')
       return
     }
 
@@ -96,12 +96,12 @@ const CreateAlbum = () => {
       }
 
       await albumsAPI.create(albumData)
-      setSuccess('Album créé avec succès !')
+      setSuccess('Album created successfully!')
       setTimeout(() => {
         navigate('/albums')
       }, 1500)
     } catch (err) {
-      setError(err.response?.data?.error || 'Erreur lors de la création de l\'album')
+      setError(err.response?.data?.error || 'Error creating album')
     } finally {
       setLoading(false)
     }
@@ -111,35 +111,35 @@ const CreateAlbum = () => {
     <div className="container">
       <div style={{ maxWidth: '600px', margin: '20px auto' }}>
         <div className="card">
-          <h2 style={{ marginBottom: '20px' }}>Créer un nouvel album</h2>
+          <h2 style={{ marginBottom: '20px' }}>Create a new album</h2>
           
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label htmlFor="title">Titre *</label>
+              <label htmlFor="title">Title *</label>
               <input
                 type="text"
                 id="title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 required
-                placeholder="Titre de l'album"
+                placeholder="Album title"
               />
             </div>
 
             <div className="form-group">
-              <label htmlFor="artist">Artiste *</label>
+              <label htmlFor="artist">Artist *</label>
               <input
                 type="text"
                 id="artist"
                 value={artist}
                 onChange={(e) => setArtist(e.target.value)}
                 required
-                placeholder="Nom de l'artiste"
+                placeholder="Artist name"
               />
             </div>
 
             <div className="form-group">
-              <label htmlFor="price">Prix (€) *</label>
+              <label htmlFor="price">Price (€) *</label>
               <input
                 type="number"
                 id="price"
@@ -155,7 +155,7 @@ const CreateAlbum = () => {
             <div className="form-group">
               <label>Tags</label>
               {loadingTags ? (
-                <div style={{ padding: '10px', color: '#666' }}>Chargement des tags...</div>
+                <div style={{ padding: '10px', color: '#666' }}>Loading tags...</div>
               ) : (
                 <>
                   <div style={{ 
@@ -168,7 +168,7 @@ const CreateAlbum = () => {
                   }}>
                     {tags.length === 0 ? (
                       <div style={{ color: '#666', fontStyle: 'italic' }}>
-                        Aucun tag disponible
+                        No tags available
                       </div>
                     ) : (
                       tags.map((tag) => {
@@ -226,7 +226,7 @@ const CreateAlbum = () => {
                       style={{ marginTop: '10px' }}
                       onClick={() => setShowNewTagInput(true)}
                     >
-                      + Créer un nouveau tag
+                      + Create a new tag
                     </button>
                   ) : (
                     <div style={{ marginTop: '10px', display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
@@ -234,7 +234,7 @@ const CreateAlbum = () => {
                         type="text"
                         value={newTagName}
                         onChange={(e) => setNewTagName(e.target.value)}
-                        placeholder="Nom du nouveau tag"
+                        placeholder="New tag name"
                         style={{ flex: 1 }}
                         onKeyPress={(e) => {
                           if (e.key === 'Enter') {
@@ -248,7 +248,7 @@ const CreateAlbum = () => {
                         className="btn btn-primary"
                         onClick={handleCreateTag}
                       >
-                        Créer
+                        Create
                       </button>
                       <button
                         type="button"
@@ -258,7 +258,7 @@ const CreateAlbum = () => {
                           setNewTagName('')
                         }}
                       >
-                        Annuler
+                        Cancel
                       </button>
                     </div>
                   )}
@@ -275,14 +275,14 @@ const CreateAlbum = () => {
                 className="btn btn-primary"
                 disabled={loading}
               >
-                {loading ? 'Création...' : 'Créer l\'album'}
+                {loading ? 'Creating...' : 'Create album'}
               </button>
               <button
                 type="button"
                 className="btn btn-secondary"
                 onClick={() => navigate('/albums')}
               >
-                Annuler
+                Cancel
               </button>
             </div>
           </form>

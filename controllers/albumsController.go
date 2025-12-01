@@ -42,7 +42,7 @@ func GetAlbumByID(c *gin.Context) {
 func PostAlbums(c *gin.Context) {
 	userID, exists := c.Get("userID")
 	if !exists {
-		c.IndentedJSON(http.StatusUnauthorized, gin.H{"error": "Utilisateur non authentifié"})
+		c.IndentedJSON(http.StatusUnauthorized, gin.H{"error": "User not authenticated"})
 		return
 	}
 
@@ -66,11 +66,11 @@ func PostAlbums(c *gin.Context) {
 		UserID: &userIDUint,
 	}
 
-	// Associer les tags si fournis
+	// Associate tags if provided
 	if len(albumInput.TagIDs) > 0 {
 		var tags []models.Tag
 		if err := initializers.DB.Where("id IN ?", albumInput.TagIDs).Find(&tags).Error; err != nil {
-			c.IndentedJSON(http.StatusBadRequest, gin.H{"error": "Erreur lors de la récupération des tags"})
+			c.IndentedJSON(http.StatusBadRequest, gin.H{"error": "Error retrieving tags"})
 			return
 		}
 		newAlbum.Tags = tags
@@ -81,7 +81,7 @@ func PostAlbums(c *gin.Context) {
 		return
 	}
 
-	// Recharger avec les relations pour la réponse
+	// Reload with relations for the response
 	initializers.DB.Preload("User").Preload("Tags").First(&newAlbum, newAlbum.ID)
 
 	c.IndentedJSON(http.StatusCreated, newAlbum)

@@ -17,7 +17,7 @@ const Header = () => {
 
   return (
     <div className="header">
-      <h1>Gestion d'Albums</h1>
+      <h1>Album Management</h1>
       <nav className="nav">
         <Link to="/albums">Albums</Link>
         {user && (
@@ -26,7 +26,7 @@ const Header = () => {
           </span>
         )}
         <button onClick={handleLogout} className="btn btn-danger">
-          Déconnexion
+          Logout
         </button>
       </nav>
     </div>

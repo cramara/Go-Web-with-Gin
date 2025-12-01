@@ -30,7 +30,7 @@ const Login = () => {
     <div className="container">
       <div style={{ maxWidth: '400px', margin: '50px auto' }}>
         <div className="card">
-          <h2 style={{ marginBottom: '20px', textAlign: 'center' }}>Connexion</h2>
+          <h2 style={{ marginBottom: '20px', textAlign: 'center' }}>Login</h2>
           
           <form onSubmit={handleSubmit}>
             <div className="form-group">
@@ -41,12 +41,12 @@ const Login = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                placeholder="votre@email.com"
+                placeholder="your@email.com"
               />
             </div>
 
             <div className="form-group">
-              <label htmlFor="password">Mot de passe</label>
+              <label htmlFor="password">Password</label>
               <input
                 type="password"
                 id="password"
@@ -65,14 +65,14 @@ const Login = () => {
               style={{ width: '100%', marginTop: '10px' }}
               disabled={loading}
             >
-              {loading ? 'Connexion...' : 'Se connecter'}
+              {loading ? 'Logging in...' : 'Login'}
             </button>
           </form>
 
           <p style={{ marginTop: '20px', textAlign: 'center' }}>
-            Pas encore de compte ?{' '}
+            Don't have an account?{' '}
             <Link to="/register" style={{ color: '#007bff' }}>
-              S'inscrire
+              Sign up
             </Link>
           </p>
         </div>

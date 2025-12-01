@@ -1,6 +1,6 @@
-# Frontend React - Gestion d'Albums
+# Frontend React - Album Management
 
-Application React pour gérer les albums via l'API Go/Gin.
+React application to manage albums via the Go/Gin API.
 
 ## Installation
 
@@ -8,43 +8,43 @@ Application React pour gérer les albums via l'API Go/Gin.
 npm install
 ```
 
-## Démarrage
+## Starting
 
 ```bash
 npm run dev
 ```
 
-L'application sera accessible sur http://localhost:3000
+The application will be accessible at http://localhost:3000
 
 ## Structure
 
-- `src/components/` - Composants React
-  - `Login.jsx` - Page de connexion
-  - `Register.jsx` - Page d'inscription
-  - `AlbumsList.jsx` - Liste des albums
-  - `AlbumDetail.jsx` - Détails d'un album
-  - `CreateAlbum.jsx` - Création d'un album
-  - `Header.jsx` - En-tête avec navigation
-  - `ProtectedRoute.jsx` - Route protégée par authentification
+- `src/components/` - React components
+  - `Login.jsx` - Login page
+  - `Register.jsx` - Registration page
+  - `AlbumsList.jsx` - Albums list
+  - `AlbumDetail.jsx` - Album details
+  - `CreateAlbum.jsx` - Album creation
+  - `Header.jsx` - Header with navigation
+  - `ProtectedRoute.jsx` - Route protected by authentication
 
-- `src/context/` - Contextes React
-  - `AuthContext.jsx` - Gestion de l'authentification
+- `src/context/` - React contexts
+  - `AuthContext.jsx` - Authentication management
 
-- `src/services/` - Services API
-  - `api.js` - Configuration axios et appels API
+- `src/services/` - API services
+  - `api.js` - Axios configuration and API calls
 
-## Fonctionnalités
+## Features
 
-- Authentification (login/register)
-- Liste des albums avec tags et créateur
-- Détails d'un album
-- Création d'albums avec tags optionnels
-- Protection des routes par authentification
-- Gestion automatique des tokens JWT
+- Authentication (login/register)
+- Albums list with tags and creator
+- Album details
+- Album creation with optional tags
+- Route protection by authentication
+- Automatic JWT token management
 
-## Configuration API
+## API Configuration
 
-L'API backend doit être démarrée sur `http://localhost:8082`
+The backend API must be started on `http://localhost:8082`
 
-Pour changer l'URL de l'API, modifiez `API_URL` dans `src/services/api.js`
+To change the API URL, modify `API_URL` in `src/services/api.js`
 

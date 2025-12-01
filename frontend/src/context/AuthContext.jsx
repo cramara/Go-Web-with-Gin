@@ -6,7 +6,7 @@ const AuthContext = createContext()
 export const useAuth = () => {
   const context = useContext(AuthContext)
   if (!context) {
-    throw new Error('useAuth doit être utilisé dans un AuthProvider')
+    throw new Error('useAuth must be used within an AuthProvider')
   }
   return context
 }
@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
     
     if (token && storedUser) {
       setUser(JSON.parse(storedUser))
-      // Vérifier que le token est toujours valide
+      // Verify that the token is still valid
       authAPI.getProfile()
         .then((profile) => {
           setUser(profile)
@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       return {
         success: false,
-        error: error.response?.data?.error || 'Erreur lors de la connexion',
+        error: error.response?.data?.error || 'Error during login',
       }
     }
   }
@@ -62,7 +62,7 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       return {
         success: false,
-        error: error.response?.data?.error || 'Erreur lors de l\'inscription',
+        error: error.response?.data?.error || 'Error during registration',
       }
     }
   }

@@ -18,7 +18,7 @@ const AlbumsList = () => {
       setAlbums(data)
       setError('')
     } catch (err) {
-      setError('Erreur lors du chargement des albums')
+      setError('Error loading albums')
       console.error(err)
     } finally {
       setLoading(false)
@@ -26,7 +26,7 @@ const AlbumsList = () => {
   }
 
   if (loading) {
-    return <div className="loading">Chargement des albums...</div>
+    return <div className="loading">Loading albums...</div>
   }
 
   if (error) {
@@ -36,16 +36,16 @@ const AlbumsList = () => {
   return (
     <div className="container">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-        <h2>Liste des Albums</h2>
+        <h2>Albums List</h2>
         <Link to="/albums/new" className="btn btn-primary">
-          Nouvel Album
+          New Album
         </Link>
       </div>
 
       {albums.length === 0 ? (
         <div className="card">
           <p style={{ textAlign: 'center', color: '#666' }}>
-            Aucun album disponible. Créez votre premier album !
+            No albums available. Create your first album!
           </p>
         </div>
       ) : (
@@ -53,12 +53,12 @@ const AlbumsList = () => {
           {albums.map((album) => (
             <div key={album.id} className="album-card">
               <h3>{album.title}</h3>
-              <p><strong>Artiste:</strong> {album.artist}</p>
-              <p><strong>Prix:</strong> {album.price.toFixed(2)} €</p>
+              <p><strong>Artist:</strong> {album.artist}</p>
+              <p><strong>Price:</strong> {album.price.toFixed(2)} €</p>
               
               {album.user && (
                 <p style={{ fontSize: '12px', color: '#999', marginTop: '10px' }}>
-                  Créé par: {album.user.name || album.user.email}
+                  Created by: {album.user.name || album.user.email}
                 </p>
               )}
 
@@ -77,7 +77,7 @@ const AlbumsList = () => {
                 className="btn btn-secondary"
                 style={{ marginTop: '15px', display: 'inline-block', textDecoration: 'none' }}
               >
-                Voir les détails
+                View details
               </Link>
             </div>
           ))}

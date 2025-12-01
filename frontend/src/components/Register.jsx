@@ -16,7 +16,7 @@ const Register = () => {
     setError('')
 
     if (password.length < 6) {
-      setError('Le mot de passe doit contenir au moins 6 caractères')
+      setError('Password must contain at least 6 characters')
       return
     }
 
@@ -37,17 +37,17 @@ const Register = () => {
     <div className="container">
       <div style={{ maxWidth: '400px', margin: '50px auto' }}>
         <div className="card">
-          <h2 style={{ marginBottom: '20px', textAlign: 'center' }}>Inscription</h2>
+          <h2 style={{ marginBottom: '20px', textAlign: 'center' }}>Sign Up</h2>
           
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label htmlFor="name">Nom</label>
+              <label htmlFor="name">Name</label>
               <input
                 type="text"
                 id="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Votre nom"
+                placeholder="Your name"
               />
             </div>
 
@@ -59,12 +59,12 @@ const Register = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                placeholder="votre@email.com"
+                placeholder="your@email.com"
               />
             </div>
 
             <div className="form-group">
-              <label htmlFor="password">Mot de passe</label>
+              <label htmlFor="password">Password</label>
               <input
                 type="password"
                 id="password"
@@ -72,7 +72,7 @@ const Register = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 minLength={6}
-                placeholder="Au moins 6 caractères"
+                placeholder="At least 6 characters"
               />
             </div>
 
@@ -84,14 +84,14 @@ const Register = () => {
               style={{ width: '100%', marginTop: '10px' }}
               disabled={loading}
             >
-              {loading ? 'Inscription...' : "S'inscrire"}
+              {loading ? 'Signing up...' : "Sign up"}
             </button>
           </form>
 
           <p style={{ marginTop: '20px', textAlign: 'center' }}>
-            Déjà un compte ?{' '}
+            Already have an account?{' '}
             <Link to="/login" style={{ color: '#007bff' }}>
-              Se connecter
+              Login
             </Link>
           </p>
         </div>

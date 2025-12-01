@@ -7,11 +7,11 @@ type Album struct {
 	Artist string  `json:"artist"`
 	Price  float64 `json:"price"`
 	
-	// Relation one-to-many: Un utilisateur peut avoir plusieurs albums
+	// One-to-many relation: A user can have multiple albums
 	UserID *uint  `json:"user_id,omitempty"`
 	User   User   `gorm:"foreignKey:UserID" json:"user,omitempty"`
 	
-	// Relation many-to-many: Un album peut avoir plusieurs tags
+	// Many-to-many relation: An album can have multiple tags
 	Tags []Tag `gorm:"many2many:album_tags;" json:"tags,omitempty"`
 }
 

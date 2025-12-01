@@ -17,7 +17,7 @@ func init() {
 func main() {
 	router := gin.Default()
 
-	// Configuration CORS pour permettre les requêtes depuis le frontend
+	// CORS configuration to allow requests from the frontend
 	router.Use(func(c *gin.Context) {
 		c.Writer.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
 		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
@@ -32,11 +32,11 @@ func main() {
 		c.Next()
 	})
 
-	// Routes publiques
+	// Public routes
 	router.POST("/register", controllers.Register)
 	router.POST("/login", controllers.Login)
 
-	// Routes protégées par authentification
+	// Routes protected by authentication
 	protected := router.Group("/")
 	protected.Use(middleware.RequireAuth())
 	{
@@ -45,7 +45,7 @@ func main() {
 		protected.POST("/albums", controllers.PostAlbums)
 		protected.GET("/profile", controllers.GetProfile)
 
-		// Routes pour les tags
+		// Tag routes
 		protected.GET("/tags", controllers.GetTags)
 		protected.POST("/tags", controllers.CreateTag)
 	}

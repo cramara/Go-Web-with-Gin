@@ -10,7 +10,7 @@ import (
 	"gorm.io/gorm"
 )
 
-// GetTags récupère tous les tags disponibles
+// GetTags retrieves all available tags
 func GetTags(c *gin.Context) {
 	var tags []models.Tag
 	if err := initializers.DB.Find(&tags).Error; err != nil {
@@ -20,7 +20,7 @@ func GetTags(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, tags)
 }
 
-// CreateTag crée un nouveau tag
+// CreateTag creates a new tag
 func CreateTag(c *gin.Context) {
 	var tagInput struct {
 		Name string `json:"name" binding:"required"`
@@ -31,10 +31,10 @@ func CreateTag(c *gin.Context) {
 		return
 	}
 
-	// Vérifier si le tag existe déjà
+	// Check if tag already exists
 	var existingTag models.Tag
 	if err := initializers.DB.Where("name = ?", tagInput.Name).First(&existingTag).Error; err == nil {
-		c.IndentedJSON(http.StatusConflict, gin.H{"error": "Ce tag existe déjà"})
+		c.IndentedJSON(http.StatusConflict, gin.H{"error": "This tag already exists"})
 		return
 	} else if err != gorm.ErrRecordNotFound {
 		c.IndentedJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})

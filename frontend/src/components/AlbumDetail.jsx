@@ -20,7 +20,7 @@ const AlbumDetail = () => {
       setAlbum(data)
       setError('')
     } catch (err) {
-      setError('Erreur lors du chargement de l\'album')
+      setError('Error loading album')
       console.error(err)
     } finally {
       setLoading(false)
@@ -28,16 +28,16 @@ const AlbumDetail = () => {
   }
 
   if (loading) {
-    return <div className="loading">Chargement...</div>
+    return <div className="loading">Loading...</div>
   }
 
   if (error || !album) {
     return (
       <div className="container">
         <div className="card">
-          <div className="error">{error || 'Album non trouvé'}</div>
+          <div className="error">{error || 'Album not found'}</div>
           <Link to="/albums" className="btn btn-secondary" style={{ marginTop: '20px', display: 'inline-block' }}>
-            Retour à la liste
+            Back to list
           </Link>
         </div>
       </div>
@@ -47,18 +47,18 @@ const AlbumDetail = () => {
   return (
     <div className="container">
       <Link to="/albums" className="btn btn-secondary" style={{ marginBottom: '20px', display: 'inline-block', textDecoration: 'none' }}>
-        ← Retour à la liste
+        ← Back to list
       </Link>
 
       <div className="card">
         <h2>{album.title}</h2>
         
         <div style={{ marginTop: '20px' }}>
-          <p><strong>Artiste:</strong> {album.artist}</p>
-          <p><strong>Prix:</strong> {album.price.toFixed(2)} €</p>
+          <p><strong>Artist:</strong> {album.artist}</p>
+          <p><strong>Price:</strong> {album.price.toFixed(2)} €</p>
           
           {album.user && (
-            <p><strong>Créé par:</strong> {album.user.name || album.user.email}</p>
+            <p><strong>Created by:</strong> {album.user.name || album.user.email}</p>
           )}
 
           {album.tags && album.tags.length > 0 && (

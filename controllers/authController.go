@@ -26,13 +26,13 @@ func Register(c *gin.Context) {
 
 	var existingUser models.User
 	if err := initializers.DB.Where("email = ?", body.Email).First(&existingUser).Error; err == nil {
-		c.IndentedJSON(http.StatusConflict, gin.H{"error": "Cet email est déjà utilisé"})
+		c.IndentedJSON(http.StatusConflict, gin.H{"error": "This email is already in use"})
 		return
 	}
 
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(body.Password), bcrypt.DefaultCost)
 	if err != nil {
-		c.IndentedJSON(http.StatusInternalServerError, gin.H{"error": "Erreur lors du hashage du mot de passe"})
+		c.IndentedJSON(http.StatusInternalServerError, gin.H{"error": "Error hashing password"})
 		return
 	}
 
@@ -49,7 +49,7 @@ func Register(c *gin.Context) {
 
 	token, err := utils.GenerateToken(user.ID, user.Email)
 	if err != nil {
-		c.IndentedJSON(http.StatusInternalServerError, gin.H{"error": "Erreur lors de la génération du token"})
+		c.IndentedJSON(http.StatusInternalServerError, gin.H{"error": "Error generating token"})
 		return
 	}
 
@@ -77,7 +77,7 @@ func Login(c *gin.Context) {
 	var user models.User
 	if err := initializers.DB.Where("email = ?", body.Email).First(&user).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
-			c.IndentedJSON(http.StatusUnauthorized, gin.H{"error": "Email ou mot de passe incorrect"})
+			c.IndentedJSON(http.StatusUnauthorized, gin.H{"error": "Incorrect email or password"})
 			return
 		}
 		c.IndentedJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -85,13 +85,13 @@ func Login(c *gin.Context) {
 	}
 
 	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(body.Password)); err != nil {
-		c.IndentedJSON(http.StatusUnauthorized, gin.H{"error": "Email ou mot de passe incorrect"})
+		c.IndentedJSON(http.StatusUnauthorized, gin.H{"error": "Incorrect email or password"})
 		return
 	}
 
 	token, err := utils.GenerateToken(user.ID, user.Email)
 	if err != nil {
-		c.IndentedJSON(http.StatusInternalServerError, gin.H{"error": "Erreur lors de la génération du token"})
+		c.IndentedJSON(http.StatusInternalServerError, gin.H{"error": "Error generating token"})
 		return
 	}
 
@@ -108,14 +108,14 @@ func Login(c *gin.Context) {
 func GetProfile(c *gin.Context) {
 	userID, exists := c.Get("userID")
 	if !exists {
-		c.IndentedJSON(http.StatusUnauthorized, gin.H{"error": "Utilisateur non authentifié"})
+		c.IndentedJSON(http.StatusUnauthorized, gin.H{"error": "User not authenticated"})
 		return
 	}
 
 	var user models.User
 	if err := initializers.DB.First(&user, userID).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
-			c.IndentedJSON(http.StatusNotFound, gin.H{"error": "Utilisateur non trouvé"})
+			c.IndentedJSON(http.StatusNotFound, gin.H{"error": "User not found"})
 			return
 		}
 		c.IndentedJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})

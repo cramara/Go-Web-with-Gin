@@ -9,7 +9,7 @@ import (
 func LoadEnvVariables() {
 	err := godotenv.Load()
 	if err != nil {
-		log.Println("Aucun fichier .env trouvé, utilisation des valeurs par défaut")
+		log.Println("No .env file found, using default values")
 	}
 }
 

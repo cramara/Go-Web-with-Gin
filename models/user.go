@@ -10,6 +10,6 @@ type User struct {
 	Password string `gorm:"not null" json:"-"`
 	Name     string `json:"name"`
 	
-	// Relation one-to-many: Un utilisateur peut avoir plusieurs albums
+	// One-to-many relation: A user can have multiple albums
 	Albums []Album `gorm:"foreignKey:UserID" json:"albums,omitempty"`
 }

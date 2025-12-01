@@ -16,19 +16,19 @@ func ConnectDB() {
 	var err error
 	DB, err = gorm.Open(sqlite.Open("albums.db"), &gorm.Config{})
 	if err != nil {
-		log.Fatal("Impossible de se connecter à la base de données")
+		log.Fatal("Unable to connect to database")
 	}
 
-	log.Println("Connexion à la base de données réussie")
+	log.Println("Database connection successful")
 }
 
 func SyncDatabase() {
 	err := DB.AutoMigrate(&models.Album{}, &models.User{}, &models.Tag{})
 	if err != nil {
-		log.Fatal("Erreur lors de la migration de la base de données")
+		log.Fatal("Error during database migration")
 	}
 
-	// Créer un utilisateur par défaut s'il n'existe pas
+	// Create a default user if it doesn't exist
 	var defaultUser models.User
 	var userCount int64
 	DB.Model(&models.User{}).Count(&userCount)
@@ -36,31 +36,31 @@ func SyncDatabase() {
 	if userCount == 0 {
 		hashedPassword, err := bcrypt.GenerateFromPassword([]byte("admin123"), bcrypt.DefaultCost)
 		if err != nil {
-			log.Fatal("Erreur lors du hashage du mot de passe par défaut")
+			log.Fatal("Error hashing default password")
 		}
 
 		defaultUser = models.User{
 			Email:    "admin@example.com",
 			Password: string(hashedPassword),
-			Name:     "Administrateur",
+			Name:     "Administrator",
 		}
 
 		if err := DB.Create(&defaultUser).Error; err != nil {
-			log.Fatal("Erreur lors de la création de l'utilisateur par défaut")
+			log.Fatal("Error creating default user")
 		}
-		log.Println("Utilisateur par défaut créé: admin@example.com / admin123")
+		log.Println("Default user created: admin@example.com / admin123")
 	} else {
-		// Récupérer le premier utilisateur comme utilisateur par défaut
+		// Retrieve the first user as default user
 		if err := DB.First(&defaultUser).Error; err != nil {
-			log.Fatal("Erreur lors de la récupération de l'utilisateur par défaut")
+			log.Fatal("Error retrieving default user")
 		}
 	}
 
-	// Mettre à jour les albums existants sans UserID pour les associer à l'utilisateur par défaut
+	// Update existing albums without UserID to associate them with the default user
 	userID := defaultUser.ID
 	DB.Model(&models.Album{}).Where("user_id IS NULL").Update("user_id", userID)
 
-	// Créer les albums de seed s'ils n'existent pas
+	// Create seed albums if they don't exist
 	var count int64
 	DB.Model(&models.Album{}).Count(&count)
 	if count == 0 {
@@ -70,8 +70,8 @@ func SyncDatabase() {
 			{Title: "Sarah Vaughan and Clifford Brown", Artist: "Sarah Vaughan", Price: 39.99, UserID: &userID},
 		}
 		if err := DB.Create(&seedAlbums).Error; err != nil {
-			log.Fatal("Erreur lors de la création des données de seed")
+			log.Fatal("Error creating seed data")
 		}
-		log.Println("Données de seed initialisées avec l'utilisateur par défaut")
+		log.Println("Seed data initialized with default user")
 	}
 }
