@@ -6,6 +6,7 @@ import Header from './components/Header'
 import Login from './components/Login'
 import Register from './components/Register'
 import AlbumsList from './components/AlbumsList'
+import AllAlbumsList from './components/AllAlbumsList'
 import AlbumDetail from './components/AlbumDetail'
 import CreateAlbum from './components/CreateAlbum'
 
@@ -22,6 +23,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <AlbumsList />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/all-albums"
+            element={
+              <ProtectedRoute>
+                <AllAlbumsList />
               </ProtectedRoute>
             }
           />

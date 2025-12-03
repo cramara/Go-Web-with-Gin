@@ -19,7 +19,8 @@ const Header = () => {
     <div className="header">
       <h1>Album Management</h1>
       <nav className="nav">
-        <Link to="/albums">Albums</Link>
+        <Link to="/albums">My Albums</Link>
+        <Link to="/all-albums">All Albums</Link>
         {user && (
           <span style={{ padding: '8px 15px', color: '#666' }}>
             {user.name || user.email}

@@ -10,8 +10,25 @@ import (
 	"gorm.io/gorm"
 )
 
-// GetAlbums responds with the list of all albums as JSON.
+// GetAlbums responds with the list of albums belonging to the authenticated user as JSON.
 func GetAlbums(c *gin.Context) {
+	userID, exists := c.Get("userID")
+	if !exists {
+		c.IndentedJSON(http.StatusUnauthorized, gin.H{"error": "User not authenticated"})
+		return
+	}
+
+	userIDUint := userID.(uint)
+	var albums []models.Album
+	if err := initializers.DB.Preload("User").Preload("Tags").Where("user_id = ?", userIDUint).Find(&albums).Error; err != nil {
+		c.IndentedJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.IndentedJSON(http.StatusOK, albums)
+}
+
+// GetAllAlbums responds with the list of all albums as JSON (for browsing all albums).
+func GetAllAlbums(c *gin.Context) {
 	var albums []models.Album
 	if err := initializers.DB.Preload("User").Preload("Tags").Find(&albums).Error; err != nil {
 		c.IndentedJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})

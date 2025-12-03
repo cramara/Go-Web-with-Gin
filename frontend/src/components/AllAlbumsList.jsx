@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { albumsAPI } from '../services/api'
 
-const AlbumsList = () => {
+const AllAlbumsList = () => {
   const [albums, setAlbums] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -14,7 +14,7 @@ const AlbumsList = () => {
   const loadAlbums = async () => {
     try {
       setLoading(true)
-      const data = await albumsAPI.getAll()
+      const data = await albumsAPI.getAllAlbums()
       setAlbums(data)
       setError('')
     } catch (err) {
@@ -36,7 +36,7 @@ const AlbumsList = () => {
   return (
     <div className="container">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-        <h2>My Albums</h2>
+        <h2>All Albums</h2>
         <Link to="/albums/new" className="btn btn-primary">
           New Album
         </Link>
@@ -55,6 +55,12 @@ const AlbumsList = () => {
               <h3>{album.title}</h3>
               <p><strong>Artist:</strong> {album.artist}</p>
               <p><strong>Price:</strong> {album.price.toFixed(2)} €</p>
+              
+              {album.user && (
+                <p style={{ fontSize: '12px', color: '#999', marginTop: '10px' }}>
+                  Created by: {album.user.name || album.user.email}
+                </p>
+              )}
 
               {album.tags && album.tags.length > 0 && (
                 <div className="tags">
@@ -81,5 +87,5 @@ const AlbumsList = () => {
   )
 }
 
-export default AlbumsList
+export default AllAlbumsList
 

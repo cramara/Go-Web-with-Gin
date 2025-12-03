@@ -41,6 +41,7 @@ func main() {
 	protected.Use(middleware.RequireAuth())
 	{
 		protected.GET("/albums", controllers.GetAlbums)
+		protected.GET("/all-albums", controllers.GetAllAlbums)
 		protected.GET("/albums/:id", controllers.GetAlbumByID)
 		protected.POST("/albums", controllers.PostAlbums)
 		protected.GET("/profile", controllers.GetProfile)

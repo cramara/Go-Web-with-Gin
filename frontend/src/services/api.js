@@ -59,6 +59,11 @@ export const albumsAPI = {
     return response.data
   },
 
+  getAllAlbums: async () => {
+    const response = await api.get('/all-albums')
+    return response.data
+  },
+
   getById: async (id) => {
     const response = await api.get(`/albums/${id}`)
     return response.data
