@@ -48,6 +48,11 @@ func main() {
 		// Tag routes
 		protected.GET("/tags", controllers.GetTags)
 		protected.POST("/tags", controllers.CreateTag)
+
+		// Song routes
+		protected.POST("/albums/:id/songs", controllers.AddSongToAlbum)
+		protected.GET("/albums/:id/songs", controllers.GetSongsByAlbum)
+		protected.DELETE("/albums/:id/songs/:songId", controllers.DeleteSong)
 	}
 
 	router.Run("localhost:8082")

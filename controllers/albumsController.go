@@ -26,7 +26,7 @@ func GetAlbumByID(c *gin.Context) {
 	id := c.Param("id")
 
 	var album models.Album
-	if err := initializers.DB.Preload("User").Preload("Tags").First(&album, id).Error; err != nil {
+	if err := initializers.DB.Preload("User").Preload("Tags").Preload("Songs").First(&album, id).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
 			c.IndentedJSON(http.StatusNotFound, gin.H{"message": "album not found"})
 			return

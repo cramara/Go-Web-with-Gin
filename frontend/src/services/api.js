@@ -82,5 +82,25 @@ export const tagsAPI = {
   },
 }
 
+export const songsAPI = {
+  getByAlbum: async (albumId) => {
+    const response = await api.get(`/albums/${albumId}/songs`)
+    return response.data
+  },
+
+  addToAlbum: async (albumId, youtubeUrl, title) => {
+    const response = await api.post(`/albums/${albumId}/songs`, {
+      youtube_url: youtubeUrl,
+      title: title || undefined,
+    })
+    return response.data
+  },
+
+  delete: async (albumId, songId) => {
+    const response = await api.delete(`/albums/${albumId}/songs/${songId}`)
+    return response.data
+  },
+}
+
 export default api
 
